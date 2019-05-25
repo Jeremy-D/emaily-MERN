@@ -20,7 +20,10 @@ passport.deserializeUser((id, done)=>{
 passport.use(new GoogleStrategy({
 	clientID: keys.googleClientID,
 	clientSecret: keys.googleClientSecret,
-	callbackURL: '/auth/google/callback'
+	callbackURL: '/auth/google/callback',
+	//relative callbackURL can break oauth flow with heroku proxy servers
+	//use absolute url or set proxy: true
+	proxy: true
 	}, (accessToken, refreshToken, profile, done) => {
 		User.findOne({ googleId: profile.id})
 			.then((existingUser)=>{

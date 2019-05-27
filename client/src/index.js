@@ -1,4 +1,6 @@
-//data/redux setup for application
+//index.js is data/redux setup for application
+
+import 'materialize-css/dist/css/materialize.min.css'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';

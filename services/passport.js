@@ -24,19 +24,17 @@ passport.use(new GoogleStrategy({
 	//relative callbackURL can break oauth flow with heroku proxy servers
 	//use absolute url or set proxy: true
 	proxy: true
-	}, (accessToken, refreshToken, profile, done) => {
-		User.findOne({ googleId: profile.id})
-			.then((existingUser)=>{
+	}, async (accessToken, refreshToken, profile, done) => {
+			const existingUser = await User.findOne({ googleId: profile.id})
 				if(existingUser){
 					//record exists
 					//see passport docs for more info on done();
 					done(null, existingUser);
 				} else {
 					//record does not exist, create user
-					new User({ googleId: profile.id })
-						.save()
-						.then(user=> done(null, user));
+					const user = await new User({ googleId: profile.id }).save()
+					done(null, user);
 				}
-			})
-	})
+		}
+	)
 );

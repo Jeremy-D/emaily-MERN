@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 //passport needs cookie-session to use cookies
 const cookieSession = require('cookie-session');
-const passport = require('passport')
+const passport = require('passport');
+const bodyParser = require('body-parser');
 const keys = require('./config/keys.js');
 require('./models/User');
 require('./services/passport');
@@ -18,6 +19,7 @@ mongoose
 
 const app = express();
 
+app.use(bodyParser.json())
 app.use(
 	cookieSession({
 		//convert days to miliseconds

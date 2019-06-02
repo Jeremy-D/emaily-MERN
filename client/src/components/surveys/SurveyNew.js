@@ -1,12 +1,26 @@
 //SurveyNew shows SurveyForm and SurveyFormReview
 import React, { Component } from 'react';
-import SurveyForm from './SurveyForm'
+import SurveyForm from './SurveyForm';
+import SurveyFormReview from './surveyFormReview';
 
 class SurveyNew extends Component{
+	//don't need constructor with create react app
+	state = { showFormReview: false};
+
+	renderContent(){
+		if(this.state.showFormReview){
+			return <SurveyFormReview
+				onCancel={()=> this.setState({showFormReview:false})}
+			/>
+		} else {
+			return <SurveyForm onSurveySubmit={()=>this.setState({ showFormReview:true })}/>
+		}
+	}
+
 	render(){
 		return(
 			<div>
-				<SurveyForm />
+				{this.renderContent()}
 			</div>
 		)
 	}
